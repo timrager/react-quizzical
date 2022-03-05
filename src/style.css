@@ -51,6 +51,10 @@ h2{
     margin-top: 1.25rem;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 .blob-top {
     border-radius: 30% 70% 67% 33% / 30% 30% 70% 70%;
     background-color: #FFFAD1;
@@ -70,4 +74,10 @@ h2{
     margin-bottom: -75%;
     right: -60%;
     transform: rotate(45deg);
+}
+
+.question{
+    position: relative;
+    padding: 1rem;
+    z-index: 500;
 }
