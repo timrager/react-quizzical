@@ -24,19 +24,22 @@ const Quiz = (props) => {
         const getQuizData = async () => {
             const response = await fetch("https://opentdb.com/api.php?amount=5&type=multiple")
             const data = await response.json()
+            Object.assign(...data.results, { all_answers: [] })
+            // data.results.all_answers.push(data.results.correct_answer, data.results.incorrect_answers)
             setQuestions(data.results)       
         }
         getQuizData();
 
     }, [])
 
-
+    console.log(questions)
 
     const questionElement = questions.map(item => (
 
         <Question 
             correct_answer={item.correct_answer}
             incorrect_answers={item.incorrect_answers}
+            all_answers={item.all_answers}
             question={item.question}
         />
     ))
