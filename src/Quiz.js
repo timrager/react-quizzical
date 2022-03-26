@@ -17,12 +17,19 @@ const Quiz = (props) => {
     const [updatedQuestions, setUpdatedQuestions] = useState([])
 
     useEffect( () => {
-        fetch("https://opentdb.com/api.php?amount=5&type=multiple")
-            .then(response => response.json())
-            .then(data => setQuestions(data.results))
+        // fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+        //     .then(response => response.json())
+        //     .then(data => setQuestions(data.results))
+
+        const getQuizData = async () => {
+            const response = await fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+            const data = await response.json()
+            setQuestions(data.results)       
+        }
+        getQuizData();
+
     }, [])
 
-    // console.log(questions)
 
 
     const questionElement = questions.map(item => (
