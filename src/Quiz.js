@@ -14,25 +14,30 @@ import Question from './Question'
 const Quiz = (props) => {
 
     const [questions, setQuestions] = useState([])
-    const [updatedQuestions, setUpdatedQuestions] = useState([])
 
     useEffect( () => {
-        // fetch("https://opentdb.com/api.php?amount=5&type=multiple")
-        //     .then(response => response.json())
-        //     .then(data => setQuestions(data.results))
 
         const getQuizData = async () => {
             const response = await fetch("https://opentdb.com/api.php?amount=5&type=multiple")
             const data = await response.json()
-            Object.assign(...data.results, { all_answers: [] })
-            // data.results.all_answers.push(data.results.correct_answer, data.results.incorrect_answers)
-            setQuestions(data.results)       
+            const newData = await data.results.map( item => {
+                const newItem = Object.assign({ ...item, all_answers: [] })
+                return newItem;
+            })
+            // console.log(newData)
+            const mergedData = await newData.map(item => {
+                item.all_answers.push(...item.incorrect_answers, item.correct_answer)
+                return item;
+            })
+            // console.log(mergedData)
+            setQuestions(mergedData)
         }
+
         getQuizData();
 
     }, [])
 
-    console.log(questions)
+    // console.log(questions)
 
     const questionElement = questions.map(item => (
 
